@@ -11881,7 +11881,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">student_data</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -11896,7 +11896,7 @@ div#notebook {
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[4]:</div>
+<div class="prompt output_prompt">Out[3]:</div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12062,14 +12062,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Calculate number of students</span>
 <span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># Calculate number of features</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
 
 <span class="c1"># Calculate passing students</span>
 <span class="n">passed</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;passed&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
@@ -12102,7 +12102,7 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of students: 395
-Number of features: 31
+Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
 Graduation rate of the class: 67.09%
@@ -12830,7 +12830,11 @@ F1 score for test set: 0.7801.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The model is not only able to find the boundary between approved and reproved studants, it finds the boundary with the most space between the two classes. Given a new case, the model is able to determine in which side of the boundary (approved or reproved) the student is on.</p>
+<p>The selected model is call Support Vector Machine, or SVM. Since it's a complicated model to explain only using words, I'll show you how it works with a ilustration.</p>
+<p>Suppose our data of previous students has only two characteristics (features), study time and internet time. We can then plot each student in a graphic like the one bellow. Now suppose the X axis is the study time and Y axis is the internet time. And consider all red circles representing the students that were approved, while the blue stars those who failed.</p>
+<p>The train phase of the model is responsible for understanding how should a boundary be drawn in the graphic bellow so it separates approved and reproved students. So next time, it has the features of a new student (study time and internet time) it can check in which side of the boundary that student belongs.</p>
+<p>But better then simply finding the split, it finds the best split. Which means the boundary that leaves the largest gap between the two outcomes.</p>
+<p><img src="imgs/svm.jpg" alt="img"></p>
 
 </div>
 </div>
