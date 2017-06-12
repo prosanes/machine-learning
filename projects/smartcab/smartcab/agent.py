@@ -1,4 +1,4 @@
-import random
+from random import randint
 import math
 from environment import Agent, Environment
 from planner import RoutePlanner
@@ -98,11 +98,14 @@ class LearningAgent(Agent):
         action = None
 
         ########### 
-        ## TO DO ##
+        ## DONE  ##
         ###########
         # When not learning, choose a random action
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
+        if not self.learning:
+            action = self.valid_actions[randint(0, len(self.valid_actions)-1)]
+
  
         return action
 
