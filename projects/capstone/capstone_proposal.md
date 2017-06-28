@@ -43,9 +43,13 @@ The dataset is provided by Walmart in the [Kaggle competition](https://www.kaggl
 - *FinelineNumber* - a more refined category for each of the products, created by Walmart
 
 ### Solution Statement
-_(approx. 1 paragraph)_
+<!-- _(approx. 1 paragraph)_
 
-In this section, clearly describe a solution to the problem. The solution should be applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, describe the solution thoroughly such that it is clear that the solution is quantifiable (the solution can be expressed in mathematical or logical terms) , measurable (the solution can be measured by some metric and clearly observed), and replicable (the solution can be reproduced and occurs more than once).
+In this section, clearly describe a solution to the problem. The solution should be applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, describe the solution thoroughly such that it is clear that the solution is quantifiable (the solution can be expressed in mathematical or logical terms) , measurable (the solution can be measured by some metric and clearly observed), and replicable (the solution can be reproduced and occurs more than once). -->
+
+After visualizing the data and processing the features, I'll execute a Gaussian Mixture Model and KMeans with K being the amount of trip types defined in the train data. The cluster assignment of each visit will be compared the outputed clusters to the trip types provided by Walmart. This will give me some feedback about the data.
+
+With the feedback provided by the visualization and the clustering, I'll train a Support Vector Machine with Stochastic Gradient Descent given the size of the data: 647.054 examples.
 
 ### Benchmark Model
 _(approximately 1-2 paragraphs)_
