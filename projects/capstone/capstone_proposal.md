@@ -47,26 +47,45 @@ The dataset is provided by Walmart in the [Kaggle competition](https://www.kaggl
 
 In this section, clearly describe a solution to the problem. The solution should be applicable to the project domain and appropriate for the dataset(s) or input(s) given. Additionally, describe the solution thoroughly such that it is clear that the solution is quantifiable (the solution can be expressed in mathematical or logical terms) , measurable (the solution can be measured by some metric and clearly observed), and replicable (the solution can be reproduced and occurs more than once). -->
 
-After visualizing the data and processing the features, I'll execute a Gaussian Mixture Model and KMeans with K being the amount of trip types defined in the train data. The cluster assignment of each visit will be compared the outputed clusters to the trip types provided by Walmart. This will give me some feedback about the data.
-
-With the feedback provided by the visualization and the clustering, I'll train a Support Vector Machine with Stochastic Gradient Descent given the size of the data: 647.054 examples.
-
-### Benchmark Model
-_(approximately 1-2 paragraphs)_
-
-In this section, provide the details for a benchmark model or result that relates to the domain, problem statement, and intended solution. Ideally, the benchmark model or result contextualizes existing methods or known information in the domain and problem given, which could then be objectively compared to the solution. Describe how the benchmark model or result is measurable (can be measured by some metric and clearly observed) with thorough detail.
+The proposed solution to the problem is the highest probability output of a probabilistic Multi-class SVM Classifier.
 
 ### Evaluation Metrics
-_(approx. 1-2 paragraphs)_
+<!-- _(approx. 1-2 paragraphs)_
 
-In this section, propose at least one evaluation metric that can be used to quantify the performance of both the benchmark model and the solution model. The evaluation metric(s) you propose should be appropriate given the context of the data, the problem statement, and the intended solution. Describe how the evaluation metric(s) are derived and provide an example of their mathematical representations (if applicable). Complex evaluation metrics should be clearly defined and quantifiable (can be expressed in mathematical or logical terms).
+In this section, propose at least one evaluation metric that can be used to quantify the performance of both the benchmark model and the solution model. The evaluation metric(s) you propose should be appropriate given the context of the data, the problem statement, and the intended solution. Describe how the evaluation metric(s) are derived and provide an example of their mathematical representations (if applicable). Complex evaluation metrics should be clearly defined and quantifiable (can be expressed in mathematical or logical terms). -->
+
+A multi-class logarithmic loss function will be used to evaluate the model. The formula is:
+
+$$-\frac{1}{N}\sum_{i=1}^N\sum_{j=1}^My_{ij}\log(p_{ij}),$$
+
+where N is the number of visits in the test set, M is the number of trip types, log is the natural logarithm, $$y_{ij}$$ is 1 if observation i is of class j and 0 otherwise, and $$p_{ij}$$ is the predicted probability that observation i belongs to class j.
+
+In order to avoid the extremes of the log function, predicted probabilities are replaced with max(min(p,1-10^{-15}),10^{-15}).
+
+### Benchmark Model
+<!--
+_(approximately 1-2 paragraphs)_
+
+In this section, provide the details for a benchmark model or result that relates to the domain, problem statement, and intended solution. Ideally, the benchmark model or result contextualizes existing methods or known information in the domain and problem given, which could then be objectively compared to the solution. Describe how the benchmark model or result is measurable (can be measured by some metric and clearly observed) with thorough detail. -->
+
+For the benchmark, I will use a random forest that has as feature only the amount of item of each Department Description. And compare the multi-class logarithmic loss value of this model with the proposed solution model.
 
 ### Project Design
-_(approx. 1 page)_
+<!-- _(approx. 1 page)_
 
-In this final section, summarize a theoretical workflow for approaching a solution given the problem. Provide thorough discussion for what strategies you may consider employing, what analysis of the data might be required before being used, or which algorithms will be considered for your implementation. The workflow and discussion that you provide should align with the qualities of the previous sections. Additionally, you are encouraged to include small visualizations, pseudocode, or diagrams to aid in describing the project design, but it is not required. The discussion should clearly outline your intended workflow of the capstone project.
+In this final section, summarize a theoretical workflow for approaching a solution given the problem. Provide thorough discussion for what strategies you may consider employing, what analysis of the data might be required before being used, or which algorithms will be considered for your implementation. The workflow and discussion that you provide should align with the qualities of the previous sections. Additionally, you are encouraged to include small visualizations, pseudocode, or diagrams to aid in describing the project design, but it is not required. The discussion should clearly outline your intended workflow of the capstone project. -->
 
------------
+The first step of the project is to understand the data quantitatively. For that I will count how many different classes, department descriptions and fineline numbers and products (UPCs) there are in the train set. Also I'll describe the distribution of scan count. 
+
+The input files must also be parsed to better fit the problem description. That is, each line of the file should be merged into a single data structure that represent a trip. That way, I can easily query informations about a trip. During that step, lines with missing data can also be handled, and new features created. For example, suppose a line of the input file misses values for Department, Fineline Number and Upc, that line can still be used to count the total amount of products for the trip. 
+
+After the data is structured by trip and not by product purchase, I will be able to describe the distribution of department description and fineline numbers by trip, and check the correlation between each department and each fineline number.
+
+For the next step, I will execute some unsupervised learning algorithms such as Gaussian Mixture Model and KMeans. K can be varied from the number of trip types defined in the train data to higher number, since there is a trip type with name "Others". Suggesting that in reallity there are more trip types then the ones provided by Walmart. Dimensionality reduction might also be used to better visualize the results.
+
+After all the analyzes have been done, I'll train a Support Vector Machine with Stochastic Gradient Descent given the size of the data: 647.054 examples.
+
+<!--
 
 **Before submitting your proposal, ask yourself. . .**
 
@@ -75,3 +94,4 @@ In this final section, summarize a theoretical workflow for approaching a soluti
 - Would the intended audience of your project be able to understand your proposal?
 - Have you properly proofread your proposal to assure there are minimal grammatical and spelling mistakes?
 - Are all the resources used for this project correctly cited and referenced?
+-->
